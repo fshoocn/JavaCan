@@ -4,6 +4,7 @@ import pers.fsh.deviceutils.hardware.vectorhardware.VectorDriverImpl;
 import pers.fsh.deviceutils.model.Result;
 import pers.fsh.deviceutils.model.hardwareconfig.CanFdConfig;
 import pers.fsh.deviceutils.model.hardwareconfig.HardwareConfigInterface;
+import pers.fsh.deviceutils.model.message.CanMessage;
 
 import java.util.List;
 
@@ -41,9 +42,37 @@ public class AppTest {
         }
         Result<String> connect = vectorDriver.connect(testHardwareList);
         log.info("连接结果: " + connect);
-        vectorDriver.setMsgListener(msg -> {
+        vectorDriver.addMsgListener(msg -> {
             log.info("接收到消息: " + msg);
         });
+
+        Thread sendThread = new Thread(() -> {
+            try {
+                while (vectorDriver.isConnected()) {
+                    Result<String> sendResult = vectorDriver.send(
+                            (CanMessage) new CanMessage()
+                                    .setDlc((byte) 8)
+                                    .setFdf(true)
+                                    .setBrs(true)
+                                    .setCanId(0x123)
+                                    .setData(new byte[]{0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08}),
+                            (CanMessage) new CanMessage()
+                                    .setDlc((byte) 8)
+                                    .setChannelIndex((short) 1)
+//                                    .setFdf(true)
+//                                    .setBrs(true)
+                                    .setCanId(0x124)
+                                    .setData(new byte[]{0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08})
+                    );
+                    log.info("发送结果: " + sendResult);
+                    sleep(5000);
+                }
+            } catch (InterruptedException e) {
+                log.error("发送线程被中断", e);
+            }
+        });
+
+        sendThread.start();
         sleep(60000);
     }
 }

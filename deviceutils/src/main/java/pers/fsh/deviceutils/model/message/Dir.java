@@ -2,7 +2,8 @@ package pers.fsh.deviceutils.model.message;
 
 /**
  * @author fanshuhua
- * @date 2025/5/15 17:39
+ * @date 2025/8/6 11:23
  */
-public abstract class Message {
+public enum Dir {
+    Tx, Rx
 }

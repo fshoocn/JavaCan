@@ -3,7 +3,7 @@ package pers.fsh.deviceutils.hardware;
 
 import pers.fsh.deviceutils.model.Result;
 import pers.fsh.deviceutils.model.hardwareconfig.HardwareConfigInterface;
-import pers.fsh.deviceutils.model.message.Message;
+import pers.fsh.deviceutils.model.message.MessageAbstract;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -15,7 +15,7 @@ import java.util.function.Consumer;
  * @date 2025/5/10 15:31
  */
 
-public interface HardwareDriverInterface {
+public interface HardwareDriverInterface<M extends MessageAbstract> {
     String DRIVER_NAME = "JavaCan";
 
     Result init();
@@ -24,11 +24,11 @@ public interface HardwareDriverInterface {
 
     Result connect(List<HardwareConfigInterface> hardwareList);
 
-    Result setMsgListener(Consumer<Message> msgListener);
+    Result addMsgListener(Consumer<M> msgListener);
 
     void disconnect();
 
-    Result send(Message data);
+    Result send(M... messages);
 
     boolean isConnected();
 
