@@ -5,7 +5,7 @@ import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import pers.fsh.base.utils.Bits;
+import pers.fsh.base.bit.Bits;
 import pers.fsh.cddutils.model.po.ecudoc.datatypes.ValueType;
 import pers.fsh.cddutils.model.po.ecudoc.datatypes.texttbl.Excl;
 

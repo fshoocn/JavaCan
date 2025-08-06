@@ -1,4 +1,4 @@
-package pers.fsh.base.utils;
+package pers.fsh.base.bit;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

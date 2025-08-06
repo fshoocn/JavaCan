@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import pers.fsh.base.utils.Bits;
+import pers.fsh.base.bit.Bits;
 import pers.fsh.cddutils.model.po.base.Name;
 import pers.fsh.cddutils.model.po.ecudoc.datatypes.ValueType;
 
